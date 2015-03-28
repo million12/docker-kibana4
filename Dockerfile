@@ -8,7 +8,7 @@ RUN \
     # Install Kibana4
     mkdir -p /opt/kibana && \
     cd /opt/kibana && \
-    curl -o /tmp/kibana4.tgz https://download.elasticsearch.org/kibana/kibana/kibana-4.0.0-linux-x64.tar.gz && \
+    curl -o /tmp/kibana4.tgz https://download.elasticsearch.org/kibana/kibana/kibana-4.0.1-linux-x64.tar.gz && \
     tar zxvf /tmp/kibana4.tgz -C /opt/kibana --strip-components=1 && \
     rm -f /tmp/kibana4.tgz
 
