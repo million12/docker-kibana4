@@ -11,18 +11,20 @@ If you mount your config to different location, simply edit it.
 
 ## Usage
 ### Basic 
-`docker run \`  
-`-ti \`  
-`-p 5601:5601 \`  
-`million12/kibana4`
+
+    docker run \
+    -ti \
+    -p 5601:5601 \
+    million12/kibana4
 
 ### Mount custom config , override some options
-`docker run \`  
-`-d \`  
-`-p 5601:5601 \`  
-`-v /my-kibana-config.yml:/opt/kibana/config/kibana.yml \`  
-`million12/kibana4 \`  
-`--elasticsearch http://elasticsearch_address:9200`  
+
+    docker run \
+    -d \
+    -p 5601:5601 \
+    -v /my-kibana-config.yml:/opt/kibana/config/kibana.yml \
+    million12/kibana4 \
+    --elasticsearch http://elasticsearch_address:9200
 
 Note: in this case config is mounted to its default location, so you don't need to modify `KIBANA_CONFIG` variable.
 
