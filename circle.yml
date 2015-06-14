@@ -1,0 +1,26 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  pre:
+    - docker info && docker version
+
+  override:
+    - docker pull million12/elasticsearch:1.5.0:
+        background: true
+
+# Run tests
+test:
+  pre:
+    - docker build -t million12/kibana4 .
+
+  override:
+    # Launch Elasticsearch
+    - docker run -d -p 9200:9200 --name elasticsearch million12/elasticsearch:1.5.0
+    - while true; do if docker logs elasticsearch | grep "started"; then break; else sleep 1; fi done
+    # Start Kibana
+    - docker run -d --name kibana -p 5601:5601 --link elasticsearch:elasticsearch.db million12/kibana4 --elasticsearch http://elasticsearch.db:9200
+    - while true; do if docker logs kibana | grep "Listening on 0.0.0.0:5601"; then break; else sleep 1; fi done
+    # test access to kibana
+    - curl -sSLi http://localhost:5601 | grep "HTTP/1.1 200 OK"
