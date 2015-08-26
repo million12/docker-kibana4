@@ -7,8 +7,8 @@ dependencies:
     - docker info && docker version
 
   override:
-    - docker pull million12/elasticsearch:1.5.0:
-        background: true
+    - docker pull centos:centos7
+    - docker pull million12/elasticsearch:1.7.1
 
 # Run tests
 test:
@@ -17,7 +17,7 @@ test:
 
   override:
     # Launch Elasticsearch
-    - docker run -d -p 9200:9200 --name elasticsearch million12/elasticsearch:1.5.0
+    - docker run -d -p 9200:9200 --name elasticsearch million12/elasticsearch:1.7.1
     - while true; do if docker logs elasticsearch | grep "started"; then break; else sleep 1; fi done
     # Start Kibana
     - docker run -d --name kibana -p 5601:5601 --link elasticsearch:elasticsearch.db million12/kibana4 --elasticsearch http://elasticsearch.db:9200
