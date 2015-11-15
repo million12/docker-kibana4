@@ -7,8 +7,7 @@ dependencies:
     - docker info && docker version
 
   override:
-    - docker pull centos:centos7
-    - docker pull million12/elasticsearch:1.7.1
+    - docker pull million12/elasticsearch:2.0.0
 
 # Run tests
 test:
@@ -17,10 +16,12 @@ test:
 
   override:
     # Launch Elasticsearch
-    - docker run -d -p 9200:9200 --name elasticsearch million12/elasticsearch:1.7.1
-    - while true; do if docker logs elasticsearch | grep "started"; then break; else sleep 1; fi done
+    - docker run -d -p 9200:9200 --name elasticsearch -e MARVEL_SUPPORT=true million12/elasticsearch:2.0.0
+    - while true; do if docker logs elasticsearch | grep "http" | grep "publish_address"; then break; else sleep 1; fi done
     # Start Kibana
-    - docker run -d --name kibana -p 5601:5601 --link elasticsearch:elasticsearch.db million12/kibana4 --elasticsearch http://elasticsearch.db:9200
-    - while true; do if docker logs kibana | grep "Listening on 0.0.0.0:5601"; then break; else sleep 1; fi done
+    - docker run -d --name kibana -p 5601:5601 --link elasticsearch:elasticsearch.db -e MARVEL_SUPPORT=true million12/kibana4 --elasticsearch http://elasticsearch.db:9200
+    - while true; do if docker logs kibana | grep "plugin:kibana" | grep "Status changed from uninitialized to green - Ready"; then break; else sleep 1; fi done
     # test access to kibana
     - curl -sSLi http://localhost:5601 | grep "HTTP/1.1 200 OK"
+    # test Marvel Plugin installation
+    - while true; do if docker logs kibana | grep "Marvel Plugin Installed"; then break; else sleep 1; fi done

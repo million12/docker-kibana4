@@ -19,6 +19,11 @@ log() {
   else echo; fi
 }
 
+install_marvel() {
+  log "Installing Marvel Plugin."
+  /opt/kibana/bin/kibana plugin --install elasticsearch/marvel/latest
+  log "Marvel Plugin Installed"
+}
 #######################################
 # Dump current $KIBANA_CONFIG
 #######################################
@@ -28,6 +33,11 @@ print_config() {
   cat $KIBANA_CONFIG
   printf '=%.0s' {1..100} && echo
 }
+
+# Marvel support check
+if [[ ${MARVEL_SUPPORT} == "true" || ${MARVEL_SUPPORT} == "yes" ]]; then
+  install_marvel
+fi
 
 # Launch Kibana
 log $KIBANA_CMD && print_config

@@ -1,7 +1,7 @@
 FROM centos:centos7
 MAINTAINER Marcin Ryzycki marcin@m12.io, Przemyslaw Ozgo linux@ozgo.info
 
-ENV KIBANA_VERSION 4.1.1
+ENV KIBANA_VERSION 4.2.0
 
 RUN \
   rpm --rebuilddb && yum clean all && \
@@ -13,9 +13,10 @@ RUN \
   tar zxvf /tmp/kibana4.tgz -C /opt/kibana --strip-components=1 && \
   rm -f /tmp/kibana4.tgz
 
-ENV KIBANA_CONFIG /opt/kibana/config/kibana.yml
+ENV KIBANA_CONFIG=/opt/kibana/config/kibana.yml \
+    MARVEL_SUPPORT=false
 
-COPY bootstrap.sh /
+COPY container-files /
 
 EXPOSE 5601
 
