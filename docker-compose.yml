@@ -1,0 +1,14 @@
+elasticsearch:
+  image: million12/elasticsearch:latest
+  environment:
+    MARVEL_SUPPORT: true
+
+kibana:
+  image: million12/kibana4:latest
+  ports:
+    - "5601:5601/tcp"
+  environment:
+    MARVEL_SUPPORT: true
+  links:
+    - elasticsearch
+  command: -e http://elasticsearch:9200

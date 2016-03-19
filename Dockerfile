@@ -1,7 +1,7 @@
 FROM centos:centos7
 MAINTAINER Marcin Ryzycki marcin@m12.io, Przemyslaw Ozgo linux@ozgo.info
 
-ENV KIBANA_VERSION 4.4.1
+ENV KIBANA_VERSION 4.4.2
 
 RUN \
   rpm --rebuilddb && yum clean all && \

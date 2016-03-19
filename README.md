@@ -7,6 +7,8 @@
 [![Pulls on Docker Hub](https://img.shields.io/docker/pulls/million12/kibana4.svg)](https://hub.docker.com/r/million12/kibana4)  
 [![Docker Layers](https://badge.imagelayers.io/million12/kibana4:latest.svg)](https://hub.docker.com/r/million12/kibana4)
 
+ [![Deploy to Docker Cloud](https://files.cloud.docker.com/images/deploy-to-dockercloud.svg)](https://cloud.docker.com/stack/deploy/?repo=https://github.com/million12/docker-kibana4/tree/master)
+
 This is a [million12/kibana4](https://registry.hub.docker.com/u/million12/kibana4/) docker image with Kibana 4 for Elasticsearch. It's based on CentOS-7 and offers ability to provide any argument to kibana process.
 
 This container is built that any extra parameters provided to `docker run` will be passed directly to kibana command. For example, if you run `docker run [run options] million12/kibana4 -e http://elasticsearch_address:9200` you pass `-e http://elasticsearch_address:9200` to kibana daemon.
