@@ -7,7 +7,7 @@ dependencies:
     - docker info && docker version
 
   override:
-    - docker pull million12/elasticsearch:2.2.1
+    - docker pull million12/elasticsearch:2.3.2
 
 # Run tests
 test:
@@ -16,7 +16,7 @@ test:
 
   override:
     # Launch Elasticsearch
-    - docker run -d -p 9200:9200 --name elasticsearch -e MARVEL_SUPPORT=true million12/elasticsearch:2.2.1
+    - docker run -d -p 9200:9200 --name elasticsearch -e MARVEL_SUPPORT=true million12/elasticsearch:2.3.2
     - while true; do if docker logs elasticsearch | grep "http" | grep "publish_address"; then break; else sleep 1; fi done
     # Start Kibana
     - docker run -d --name kibana -p 5601:5601 --link elasticsearch:elasticsearch.db -e MARVEL_SUPPORT=true million12/kibana4 --elasticsearch http://elasticsearch.db:9200
