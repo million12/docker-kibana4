@@ -1,7 +1,7 @@
 FROM centos:centos7
 MAINTAINER Marcin Ryzycki marcin@m12.io, Przemyslaw Ozgo linux@ozgo.info
 
-ENV KIBANA_VERSION 4.5.1
+ENV KIBANA_VERSION 4.6.1
 
 RUN \
   rpm --rebuilddb && yum clean all && \
@@ -9,7 +9,7 @@ RUN \
   yum clean all && \
   mkdir -p /opt/kibana && \
   cd /opt/kibana && \
-  curl -o /tmp/kibana4.tgz https://download.elastic.co/kibana/kibana/kibana-${KIBANA_VERSION}-linux-x64.tar.gz && \
+  curl -o /tmp/kibana4.tgz https://download.elastic.co/kibana/kibana/kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz && \
   tar zxvf /tmp/kibana4.tgz -C /opt/kibana --strip-components=1 && \
   rm -f /tmp/kibana4.tgz
 
